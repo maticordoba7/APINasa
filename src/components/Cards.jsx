@@ -1,41 +1,44 @@
-import React, { useState , useEffect} from 'react';
+import React, { useEffect} from 'react';
 import Image from './Image';
 import {connect} from 'react-redux';
 import { setImages } from '../actions';
 
-function Cards({ rover, setImages, images }) {
+function Cards({ rover, setImages, images,camera, page, earthDate, solDate}) {
+
      useEffect(() => {
-        setImages(rover)
-       }, [rover])
-    const status = "success"
-    return (
+         console.log(earthDate)
+        setImages(rover, page, camera, earthDate, solDate)
+       }, [rover, camera, page, earthDate, solDate])
+      
+       
+       return (
         <div>
-            <p>Seleccionaste el rover: {rover}</p>
-            {status === "loading" && (
-                <div>Loading data...</div>
-            )}
-            {status === "error" && (
-                <div>Error fetching data</div>
-            )}
-            {status === "success" && (
+            {images[0] && images[0].length === 0? 
+                <div class="alert alert-danger" role="alert" style ={{display:"flex", justifyContent: "center", alignItems: "center"}} >
+                    No photos for those filters
+                </div>:
                 <div>
-                    {images[0] && images[0]?.map((i) => <Image url={i.img_src} /> )}
+                    {images[0]?.map((i) => <Image key={i.id} url={i.img_src} id={i.id}/> )}
                 </div>
-            )}
+            }
         </div>
     )
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        setImages: (rover) => dispatch(setImages(rover))
+        setImages: (rover,page,camera, earthDate, solDate) => dispatch(setImages(rover, page,camera, earthDate, solDate))
     }
 }
   
 const mapStateToProps = state => {
     return {
         rover: state.rover,
-        images: state.images
+        images: state.images,
+        camera: state.camera,
+        page: state.page,
+        earthDate: state.earthDate,
+        solDate: state.solDate
     }
 }
   

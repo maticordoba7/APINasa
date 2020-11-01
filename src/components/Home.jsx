@@ -1,19 +1,15 @@
 import React from 'react';
 import Pagination from './Pagination';
 import NavBar from './NavBar';
-import { useState } from 'react';
-import Curiosity from './Curiosity';
-import Opportunity from './Opportunity';
-import Spirit from './Spirit';
+import Cards from './Cards'
+import Selectors from './Selectors';
 
 function Home() {
-    const [robot, setRover] = useState('Curiosity') 
     return (
         <div>
-            <NavBar setRover={setRover} />
-            {robot === "Curiosity"? <Curiosity/>:
-            robot === "Opportunity"? <Opportunity/>:
-            <Spirit/> }
+            <NavBar />
+            <Selectors/>
+            <Cards/>
             <Pagination />
         </div>
     )
