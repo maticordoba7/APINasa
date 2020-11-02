@@ -17,7 +17,6 @@ export function setImages (rover, page, camera, earthDate, solDate) {
     url = `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?earth_date=${earthDate}&camera=${camera}&page=${page}&api_key=${APIKEY}`
   }
   return function(dispatch) {
-    console.log(url)
       return axios.get(url)
         .then(result => result.data)
         .then(data => {
